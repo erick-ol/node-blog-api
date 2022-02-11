@@ -10,6 +10,16 @@ const create = async (req, res) => {
   return res.status(201).json({ token });
 };
 
+const login = async (req, res) => {
+  const loginInfo = req.body;
+  const user = await userService.login(loginInfo);
+  if (!user) return res.status(400).json({ message: 'Invalid fields' });
+
+  const token = sign(user.dataValues);
+  return res.status(200).json({ token });
+};
+
 module.exports = {
   create,
+  login,
 };

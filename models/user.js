@@ -7,6 +7,10 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   User.getByEmail = (email) => User.findOne({ where: { email } });
+  User.exists = ({ email, password }) => User.findOne({ where: {
+    email,
+    password,
+  } });
 
   return User;
 };

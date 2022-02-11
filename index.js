@@ -5,7 +5,7 @@ const app = express();
 app.use(bodyParser.json());
 
 // require routes
-const { user } = require('./routes');
+const { user, login } = require('./routes');
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
@@ -16,3 +16,4 @@ app.get('/', (request, response) => {
 
 // endpoint projeto
 app.use('/user', user);
+app.use('/login', login);

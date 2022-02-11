@@ -1,4 +1,5 @@
 const user = require('express').Router();
+const login = require('express').Router();
 
 // Import Controllers
 const {
@@ -17,6 +18,15 @@ user.post(
   userController.create,
 );
 
+// Login methods
+login.post(
+  '/',
+  validateUser.validateEmail,
+  validateUser.validatePassword,
+  userController.login,
+);
+
 module.exports = {
   user,
+  login,
 };

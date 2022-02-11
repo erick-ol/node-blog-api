@@ -15,6 +15,12 @@ const validateName = async (req, res, next) => {
 const validateEmail = async (req, res, next) => {
   const { email } = req.body;
 
+  const { error: emailEmptyErr } = Joi.string().empty().validate(email);
+  if (emailEmptyErr) {
+    return res.status(400).json({
+      message: '"email" is not allowed to be empty' });
+  }
+
   const { error: emailRequiredErr } = Joi.string().required().validate(email);
   if (emailRequiredErr) {
     return res.status(400).json({
@@ -32,6 +38,12 @@ const validateEmail = async (req, res, next) => {
 
 const validatePassword = async (req, res, next) => {
   const { password } = req.body;
+
+  const { error: passwordEmptyErr } = Joi.string().empty().validate(password);
+  if (passwordEmptyErr) {
+    return res.status(400).json({
+      message: '"password" is not allowed to be empty' });
+  }
 
   const { error: passwordRequiredErr } = Joi.string().required().validate(password);
   if (passwordRequiredErr) {
