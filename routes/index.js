@@ -1,13 +1,15 @@
 const user = require('express').Router();
 const login = require('express').Router();
+const category = require('express').Router();
 
 // Import Controllers
 const {
   userController,
+  categoryController,
 } = require('../controllers');
 
 // Import Middlewares
-const { validateUser, validateToken } = require('../controllers/middlewares');
+const { validateUser, validateToken, validateCategory } = require('../controllers/middlewares');
 
 // User methods
 user.post(
@@ -36,7 +38,16 @@ login.post(
   userController.login,
 );
 
+// Category methods
+category.post(
+  '/',
+  validateCategory,
+  validateToken,
+  categoryController.create,
+);
+
 module.exports = {
   user,
   login,
+  category,
 };
