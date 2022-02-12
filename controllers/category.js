@@ -4,6 +4,7 @@ const {
   CONFLICT_STATUS,
   CREATED_STATUS,
   UNAUTHORIZED_STATUS,
+  OK_STATUS,
 } = require('../utils/statusCode');
 
 const create = async (req, res) => {
@@ -24,6 +25,20 @@ const create = async (req, res) => {
   }
 };
 
+const getAll = async (req, res) => {
+  const { authorization } = req.headers;
+
+  try {
+    verify(authorization);
+
+    const categories = await categoryService.getAll();
+    return res.status(OK_STATUS).json(categories);
+  } catch (err) {
+    return res.status(UNAUTHORIZED_STATUS).json({ message: 'Expired or invalid token' });
+  }
+};
+
 module.exports = {
   create,
+  getAll,
 };
