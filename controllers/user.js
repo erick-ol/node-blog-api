@@ -6,6 +6,7 @@ const {
   BAD_REQUEST_STATUS,
   OK_STATUS,
   UNAUTHORIZED_STATUS,
+  NOT_FOUND_STATUS,
 } = require('../utils/statusCode');
 
 const create = async (req, res) => {
@@ -39,8 +40,27 @@ const getAll = async (req, res) => {
   }
 };
 
+const getById = async (req, res) => {
+  const { authorization } = req.headers;
+  const { id } = req.params;
+
+  try {
+    verify(authorization);
+
+    const userInfo = await userService.getById(id);
+    if (!userInfo) {
+      return res.status(NOT_FOUND_STATUS).json({ message: 'User does not exist' });
+    }
+
+    return res.status(OK_STATUS).json(userInfo);
+  } catch (err) {
+    return res.status(UNAUTHORIZED_STATUS).json({ message: 'Expired or invalid token' });
+  }
+};
+
 module.exports = {
   create,
   login,
   getAll,
+  getById,
 };

@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   User.getAll = () => User.findAll();
+  User.getById = (id) => User.findByPk(id);
   User.getByEmail = (email) => User.findOne({ where: { email } });
   User.exists = ({ email, password }) => User.findOne({ where: {
     email,

@@ -22,6 +22,11 @@ user.get(
   validateToken,
   userController.getAll,
 );
+user.get(
+  '/:id',
+  validateToken,
+  userController.getById,
+);
 
 // Login methods
 login.post(
