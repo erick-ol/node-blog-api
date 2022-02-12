@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     image: DataTypes.STRING,
   });
 
+  User.getAll = () => User.findAll();
   User.getByEmail = (email) => User.findOne({ where: { email } });
   User.exists = ({ email, password }) => User.findOne({ where: {
     email,

@@ -7,7 +7,7 @@ const {
 } = require('../controllers');
 
 // Import Middlewares
-const { validateUser } = require('../controllers/middlewares');
+const { validateUser, validateToken } = require('../controllers/middlewares');
 
 // User methods
 user.post(
@@ -16,6 +16,11 @@ user.post(
   validateUser.validateEmail,
   validateUser.validatePassword,
   userController.create,
+);
+user.get(
+  '/',
+  validateToken,
+  userController.getAll,
 );
 
 // Login methods

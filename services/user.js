@@ -12,7 +12,6 @@ const create = async (userInfo) => {
 
 const login = async (loginInfo) => {
   const userInfo = await User.exists(loginInfo);
-  console.log(userInfo);
   if (userInfo === null) {
     return false;
   }
@@ -20,7 +19,13 @@ const login = async (loginInfo) => {
   return userInfo;
 };
 
+const getAll = async () => {
+  const users = await User.getAll();
+  return users;
+};
+
 module.exports = {
   create,
   login,
+  getAll,
 };

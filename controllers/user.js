@@ -1,5 +1,5 @@
 const { userService } = require('../services');
-const { sign } = require('../utils/jwt');
+const { sign, verify } = require('../utils/jwt');
 
 const create = async (req, res) => {
   const userInfo = req.body;
@@ -19,7 +19,21 @@ const login = async (req, res) => {
   return res.status(200).json({ token });
 };
 
+const getAll = async (req, res) => {
+  const { authorization } = req.headers;
+
+  try {
+    verify(authorization);
+
+    const users = await userService.getAll();
+    return res.status(200).json(users);
+  } catch (err) {
+    return res.status(401).json({ message: 'Expired or invalid token' });
+  }
+};
+
 module.exports = {
   create,
   login,
+  getAll,
 };
