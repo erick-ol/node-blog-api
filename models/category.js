@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Category.getAll = () => Category.findAll();
   Category.getByName = (name) => Category.findOne({ where: { name } });
+  Category.getById = (id) => Category.findByPk(id);
 
   return Category;
 };

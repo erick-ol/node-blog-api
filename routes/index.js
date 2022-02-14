@@ -1,15 +1,22 @@
 const user = require('express').Router();
 const login = require('express').Router();
 const category = require('express').Router();
+const post = require('express').Router();
 
 // Import Controllers
 const {
   userController,
   categoryController,
+  postController,
 } = require('../controllers');
 
 // Import Middlewares
-const { validateUser, validateToken, validateCategory } = require('../controllers/middlewares');
+const {
+  validateUser,
+  validatePost,
+  validateToken,
+  validateCategory,
+} = require('../controllers/middlewares');
 
 // User methods
 user.post(
@@ -51,8 +58,19 @@ category.get(
   categoryController.getAll,
 );
 
+// Post methods
+post.post(
+  '/',
+  validateToken,
+  validatePost.validateTitle,
+  validatePost.validateContent,
+  validatePost.validateCategory,
+  postController.create,
+);
+
 module.exports = {
   user,
   login,
   category,
+  post,
 };

@@ -13,7 +13,13 @@ const getAll = async () => {
   return categories;
 };
 
+const getById = async (id) => {
+  const categories = await Category.getById(id);
+  return categories;
+};
+
 module.exports = {
   create,
   getAll,
+  getById,
 };

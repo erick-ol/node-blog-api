@@ -5,7 +5,7 @@ const app = express();
 app.use(bodyParser.json());
 
 // require routes
-const { user, login, category } = require('./routes');
+const { user, login, category, post } = require('./routes');
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
@@ -18,3 +18,4 @@ app.get('/', (request, response) => {
 app.use('/user', user);
 app.use('/login', login);
 app.use('/categories', category);
+app.use('/post', post);
