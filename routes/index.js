@@ -67,6 +67,11 @@ post.post(
   validatePost.validateCategory,
   postController.create,
 );
+post.get(
+  '/',
+  validateToken,
+  postController.getAll,
+);
 
 module.exports = {
   user,

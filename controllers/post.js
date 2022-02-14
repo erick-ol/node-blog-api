@@ -5,6 +5,7 @@ const {
   CREATED_STATUS,
   UNAUTHORIZED_STATUS,
   BAD_REQUEST_STATUS,
+  OK_STATUS,
 } = require('../utils/statusCode');
 
 const create = async (req, res) => {
@@ -13,8 +14,6 @@ const create = async (req, res) => {
   
   try {
     const user = verify(authorization);
-    console.log(req.user);
-    console.log({ ...postInfo, userId: user.id });
 
     const newPost = await postService.create({ ...postInfo, userId: user.id });
     if (!newPost) {
@@ -28,6 +27,21 @@ const create = async (req, res) => {
   }
 };
 
+const getAll = async (req, res) => {
+  const { authorization } = req.headers;
+  
+  try {
+    verify(authorization);
+
+    const posts = await postService.getAll();
+    return res.status(OK_STATUS).json(posts);
+  } catch (err) {
+    console.log(err);
+    return res.status(UNAUTHORIZED_STATUS).json({ message: 'Expired or invalid token' });
+  }
+};
+
 module.exports = {
   create,
+  getAll,
 };

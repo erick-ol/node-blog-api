@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     BlogPost.belongsTo(models.User, { as: 'user', foreignKey: 'userId' });
   };
 
-  BlogPost.getAll = () => BlogPost.findAll();
+  BlogPost.getAll = (conditions) => BlogPost.findAll(conditions);
   BlogPost.getByName = (name) => BlogPost.findOne({ where: { name } });
 
   return BlogPost;
