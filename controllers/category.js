@@ -9,6 +9,7 @@ const {
 
 const create = async (req, res) => {
   const categoryInfo = req.body;
+
   const { authorization } = req.headers;
   
   try {
